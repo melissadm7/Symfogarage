@@ -1,0 +1,40 @@
+.card{
+    position:absolute;
+    top:60%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+    border: 2px solid orange;
+    border-radius: 12px;
+    box-shadow: 3px 3px 3px #df691a;
+
+}
+.container{
+    margin-top:20px;
+}
+.bienvenue{
+    text-transform: uppercase;
+    margin-top:100px;
+    text-align:center;
+}
+hr{
+    margin: 60px auto;
+    width:800px;
+    height: 2px;
+    background-color: #f90;
+    
+  }
+
+  .cardcol{
+    border: 2px solid orange;
+    border-radius: 12px;
+    margin-top:130px;
+  }
+
+  footer{
+      height: 100px;
+      background-color:#df691a;
+      margin-top:80px;
+      color:white;
+      text-align:center;
+  }
