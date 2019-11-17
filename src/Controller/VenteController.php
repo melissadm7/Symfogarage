@@ -13,6 +13,7 @@ class VenteController extends AbstractController
      */
     public function index(VoitureRepository $repo)
     {
+        //$repo = $this->getDoctrine()->getRepository(Ad::class);
         $vente = $repo->findAll();
 
         return $this->render('vente/index.html.twig', [
