@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -85,6 +87,22 @@ class Voiture
      * @ORM\Column(type="string", length=255)
      */
     private $imageCover;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="caption")
+     */
+    private $images;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="voiture")
+     */
+    private $url;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+        $this->url = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -274,5 +292,67 @@ class Voiture
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->modele);
         }
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setCaption($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getCaption() === $this) {
+                $image->setCaption(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getUrl(): Collection
+    {
+        return $this->url;
+    }
+
+    public function addUrl(Image $url): self
+    {
+        if (!$this->url->contains($url)) {
+            $this->url[] = $url;
+            $url->setVoiture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUrl(Image $url): self
+    {
+        if ($this->url->contains($url)) {
+            $this->url->removeElement($url);
+            // set the owning side to null (unless already changed)
+            if ($url->getVoiture() === $this) {
+                $url->setVoiture(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -10,7 +10,7 @@
     {% set url= path('vente_show', {'slug': voiture.slug }) %}
         <div class="col-md-4">
             <div class="card mb-4">
-                <h3 class="card-header" style="text-align:center;">{{voiture.marque}}</h3>
+                <a href="{{ url }}"><h3 class="card-header" style="text-align:center;">{{voiture.marque}}</h3></a>
                 <div class="card-body">
                     <h5 class="card-title" style="text-align:center;">{{voiture.marque}} {{voiture.modele}}</h5>
                 </div>
@@ -21,7 +21,7 @@
                     <li class="list-group-item">{{voiture.prix}} €</li>
                 </ul>
                 <div class="card-body">
-                    <a href="{{ url }}"><h6><a href="#" class="card-link"><strong>En savoir plus</strong></a></h6></a>
+                    <h6><a href="{{ url }}" class="card-link"><strong>En savoir plus</strong></a></h6>
 
                 </div>
             </div>
