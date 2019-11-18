@@ -29,27 +29,22 @@ class Voiture
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $imageCover;
+    private $slug;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $km;
 
     /**
-     * @ORM\Column(type="decimal", precision=6, scale=2)
+     * @ORM\Column(type="string", length=255)
      */
     private $prix;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $proprio;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $cylindre;
+    private $cylindree;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -79,7 +74,17 @@ class Voiture
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $voption;
+    private $voptions;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $proprio;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $imageCover;
 
     public function getId(): ?int
     {
@@ -110,24 +115,24 @@ class Voiture
         return $this;
     }
 
-    public function getImageCover(): ?string
+    public function getSlug(): ?string
     {
-        return $this->imageCover;
+        return $this->slug;
     }
 
-    public function setImageCover(string $imageCover): self
+    public function setSlug(string $slug): self
     {
-        $this->imageCover = $imageCover;
+        $this->slug = $slug;
 
         return $this;
     }
 
-    public function getKm(): ?int
+    public function getKm(): ?string
     {
         return $this->km;
     }
 
-    public function setKm(int $km): self
+    public function setKm(string $km): self
     {
         $this->km = $km;
 
@@ -146,26 +151,14 @@ class Voiture
         return $this;
     }
 
-    public function getProprio(): ?string
+    public function getCylindree(): ?string
     {
-        return $this->proprio;
+        return $this->cylindree;
     }
 
-    public function setProprio(string $proprio): self
+    public function setCylindree(string $cylindree): self
     {
-        $this->proprio = $proprio;
-
-        return $this;
-    }
-
-    public function getCylindre(): ?string
-    {
-        return $this->cylindre;
-    }
-
-    public function setCylindre(string $cylindre): self
-    {
-        $this->cylindre = $cylindre;
+        $this->cylindree = $cylindree;
 
         return $this;
     }
@@ -230,15 +223,56 @@ class Voiture
         return $this;
     }
 
-    public function getVoption(): ?string
+    public function getVoptions(): ?string
     {
-        return $this->voption;
+        return $this->voptions;
     }
 
-    public function setVoption(string $voption): self
+    public function setVoptions(string $voptions): self
     {
-        $this->voption = $voption;
+        $this->voptions = $voptions;
 
         return $this;
+    }
+
+    public function getProprio(): ?string
+    {
+        return $this->proprio;
+    }
+
+    public function setProprio(string $proprio): self
+    {
+        $this->proprio = $proprio;
+
+        return $this;
+    }
+
+    public function getImageCover(): ?string
+    {
+        return $this->imageCover;
+    }
+
+    public function setImageCover(string $imageCover): self
+    {
+        $this->imageCover = $imageCover;
+
+        return $this;
+    }
+
+
+
+ /**
+     * Permet d'intialiser le slug
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
+     * @return void
+     */
+    public function initializeSlug(){
+        if(empty($this->slug)){
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->modele);
+        }
     }
 }

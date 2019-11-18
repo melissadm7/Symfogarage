@@ -30,6 +30,11 @@ hr{
     border-radius: 12px;
     margin-top:130px;
   }
+  .coverimg{
+    height: 270px;
+    width: 100%;
+    display: block;
+}
 
   footer{
       height: 100px;
@@ -38,3 +43,4 @@ hr{
       color:white;
       text-align:center;
   }
+  
