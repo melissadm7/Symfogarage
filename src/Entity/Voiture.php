@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,20 +34,30 @@ class Voiture
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $coverImg;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
     private $km;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $prix;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
-    private $cylindree;
+    private $proprio;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
+     */
+    private $cylindre;
+
+    /**
+     * @ORM\Column(type="integer")
      */
     private $puissance;
 
@@ -59,7 +67,7 @@ class Voiture
     private $carburant;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $annee;
 
@@ -76,33 +84,7 @@ class Voiture
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $voptions;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $proprio;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $imageCover;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="caption")
-     */
-    private $images;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="voiture")
-     */
-    private $url;
-
-    public function __construct()
-    {
-        $this->images = new ArrayCollection();
-        $this->url = new ArrayCollection();
-    }
+    private $voption;
 
     public function getId(): ?int
     {
@@ -145,12 +127,24 @@ class Voiture
         return $this;
     }
 
-    public function getKm(): ?string
+    public function getCoverImg(): ?string
+    {
+        return $this->coverImg;
+    }
+
+    public function setCoverImg(string $coverImg): self
+    {
+        $this->coverImg = $coverImg;
+
+        return $this;
+    }
+
+    public function getKm(): ?int
     {
         return $this->km;
     }
 
-    public function setKm(string $km): self
+    public function setKm(int $km): self
     {
         $this->km = $km;
 
@@ -169,24 +163,36 @@ class Voiture
         return $this;
     }
 
-    public function getCylindree(): ?string
+    public function getProprio(): ?int
     {
-        return $this->cylindree;
+        return $this->proprio;
     }
 
-    public function setCylindree(string $cylindree): self
+    public function setProprio(int $proprio): self
     {
-        $this->cylindree = $cylindree;
+        $this->proprio = $proprio;
 
         return $this;
     }
 
-    public function getPuissance(): ?string
+    public function getCylindre(): ?int
+    {
+        return $this->cylindre;
+    }
+
+    public function setCylindre(int $cylindre): self
+    {
+        $this->cylindre = $cylindre;
+
+        return $this;
+    }
+
+    public function getPuissance(): ?int
     {
         return $this->puissance;
     }
 
-    public function setPuissance(string $puissance): self
+    public function setPuissance(int $puissance): self
     {
         $this->puissance = $puissance;
 
@@ -205,12 +211,12 @@ class Voiture
         return $this;
     }
 
-    public function getAnnee(): ?string
+    public function getAnnee(): ?int
     {
         return $this->annee;
     }
 
-    public function setAnnee(string $annee): self
+    public function setAnnee(int $annee): self
     {
         $this->annee = $annee;
 
@@ -241,45 +247,19 @@ class Voiture
         return $this;
     }
 
-    public function getVoptions(): ?string
+    public function getVoption(): ?string
     {
-        return $this->voptions;
+        return $this->voption;
     }
 
-    public function setVoptions(string $voptions): self
+    public function setVoption(string $voption): self
     {
-        $this->voptions = $voptions;
+        $this->voption = $voption;
 
         return $this;
     }
 
-    public function getProprio(): ?string
-    {
-        return $this->proprio;
-    }
-
-    public function setProprio(string $proprio): self
-    {
-        $this->proprio = $proprio;
-
-        return $this;
-    }
-
-    public function getImageCover(): ?string
-    {
-        return $this->imageCover;
-    }
-
-    public function setImageCover(string $imageCover): self
-    {
-        $this->imageCover = $imageCover;
-
-        return $this;
-    }
-
-
-
- /**
+    /**
      * Permet d'intialiser le slug
      * 
      * @ORM\PrePersist
@@ -292,67 +272,5 @@ class Voiture
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->modele);
         }
-    }
-
-    /**
-     * @return Collection|Image[]
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setCaption($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
-            // set the owning side to null (unless already changed)
-            if ($image->getCaption() === $this) {
-                $image->setCaption(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Image[]
-     */
-    public function getUrl(): Collection
-    {
-        return $this->url;
-    }
-
-    public function addUrl(Image $url): self
-    {
-        if (!$this->url->contains($url)) {
-            $this->url[] = $url;
-            $url->setVoiture($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUrl(Image $url): self
-    {
-        if ($this->url->contains($url)) {
-            $this->url->removeElement($url);
-            // set the owning side to null (unless already changed)
-            if ($url->getVoiture() === $this) {
-                $url->setVoiture(null);
-            }
-        }
-
-        return $this;
     }
 }

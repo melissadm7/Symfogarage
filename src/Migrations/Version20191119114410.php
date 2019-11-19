@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191118132623 extends AbstractMigration
+final class Version20191119114410 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20191118132623 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE voiture (id INT AUTO_INCREMENT NOT NULL, marque VARCHAR(255) NOT NULL, modele VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, km VARCHAR(255) NOT NULL, prix VARCHAR(255) NOT NULL, cylindree VARCHAR(255) NOT NULL, puissance VARCHAR(255) NOT NULL, carburant VARCHAR(255) NOT NULL, annee VARCHAR(255) NOT NULL, transmission VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, voptions VARCHAR(255) NOT NULL, proprio VARCHAR(255) NOT NULL, image_cover VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE voiture (id INT AUTO_INCREMENT NOT NULL, marque VARCHAR(255) NOT NULL, modele VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, cover_img VARCHAR(255) NOT NULL, km INT NOT NULL, prix NUMERIC(10, 2) NOT NULL, proprio INT NOT NULL, cylindre INT NOT NULL, puissance INT NOT NULL, carburant VARCHAR(255) NOT NULL, annee INT NOT NULL, transmission VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, voption VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema) : void
