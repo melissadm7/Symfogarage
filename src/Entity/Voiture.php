@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
+
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VoitureRepository")
@@ -85,6 +89,16 @@ class Voiture
      * @ORM\Column(type="string", length=255)
      */
     private $voption;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="voiture", orphanRemoval=true)
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -269,8 +283,40 @@ class Voiture
      */
     public function initializeSlug(){
         if(empty($this->slug)){
+            $slugStr=$this->marque."-".$this->modele."-".$this->Price."-".$this->annee->format('Y');
             $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->modele);
+            $this->slug = $slugify->slugify($slugStr);
         }
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setVoiture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getVoiture() === $this) {
+                $image->setVoiture(null);
+            }
+        }
+
+        return $this;
     }
 }

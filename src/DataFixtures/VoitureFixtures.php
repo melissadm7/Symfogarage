@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 use Faker\Factory;
+use App\Entity\Image;
 use App\Entity\Voiture;
 use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -43,14 +44,14 @@ class VoitureFixtures extends Fixture
                     ->setDescription($description)
                     ->setVoption($voption);
 
-            /*for($j=1; $j <= mt_rand(2,5) ; $j++){
+            for($j=1; $j <= mt_rand(2,5) ; $j++){
                 $image = new Image();
                 $image->setUrl($faker->imageUrl())
                     ->setCaption($faker->sentence())
                     ->setVoiture($voiture);
 
                 $manager->persist($image);
-            }*/
+            }
         $manager->persist($voiture);
         }
         // $product = new Product();

@@ -15,10 +15,10 @@ class VenteController extends AbstractController
     public function index(VoitureRepository $repo)
     {
         //$repo = $this->getDoctrine()->getRepository(Ad::class);
-        $vente = $repo->findAll();
+        $voiture = $repo->findAll();
 
         return $this->render('vente/index.html.twig', [
-            'vente' => $vente
+            'vente' => $voiture
         ]);
     }
 
@@ -28,12 +28,12 @@ class VenteController extends AbstractController
      *@return Response 
      */
 
-    public function show($slug, Voiture $vente){
+    public function show($slug, Voiture $voiture){
 
-        //$ad = $repo->findOneBySlug($slug);
+        //$voiture = $repo->findOneBySlug($slug);
 
         return $this->render('vente/show.html.twig',[
-            'vente' => $vente
+            'voiture' => $voiture
         ]);
         
     }
