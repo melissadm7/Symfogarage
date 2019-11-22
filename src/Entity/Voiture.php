@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
-
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VoitureRepository")
+ * @ORM\HasLifecycleCallbacks
+ * 
  */
 class Voiture
 {
@@ -22,11 +25,13 @@ class Voiture
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=255, minMessage="La marque doit faire plus de 10 caractères",maxMessage="Le titre ne peut pas faire plus de 255 caractères")
      */
     private $marque;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=255, minMessage="Le modèle doit faire plus de 10 caractères",maxMessage="Le titre ne peut pas faire plus de 255 caractères")
      */
     private $modele;
 
@@ -37,6 +42,7 @@ class Voiture
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url()
      */
     private $coverImg;
 
@@ -72,6 +78,7 @@ class Voiture
 
     /**
      * @ORM\Column(type="integer")
+     * 
      */
     private $annee;
 
@@ -94,6 +101,12 @@ class Voiture
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="voiture", orphanRemoval=true)
      */
     private $images;
+
+    /**
+     * @ORM\Column(type="text")
+     * @Assert\Length(min=50, minMessage="Votre description doit faire plus de 50 caractères")
+     */
+    private $descrip;
 
     public function __construct()
     {
@@ -316,6 +329,18 @@ class Voiture
                 $image->setVoiture(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescrip(): ?string
+    {
+        return $this->descrip;
+    }
+
+    public function setDescrip(string $descrip): self
+    {
+        $this->descrip = $descrip;
 
         return $this;
     }

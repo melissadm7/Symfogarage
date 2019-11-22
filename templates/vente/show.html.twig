@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 mb-3">
-            {{voiture.description}}
+            {{voiture.descrip | raw}}
             <div class="bd-example">
                 <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -44,14 +44,14 @@
         </div>
         <div class="col">
             <div class="row">
-                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-                <div class="card-header"><h3>{{voiture.prix}} €</h3> T.V.A. incluse</div>
+                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header"><h3>{{voiture.prix}} €</h3> <p style="font-size:9px;">T.V.A. incluse</p></div>
                 <div class="card-body">
                     Les options:
                     <p class="card-text">{{voiture.voption}}.</p>
                 </div>
                 </div>
-                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
                     <h5><strong><div class="card-header" style="text-align:center";>Données générales</div></strong></h5>
                     <div class="card-body">
                         <div class="row">

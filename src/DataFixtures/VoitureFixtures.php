@@ -25,7 +25,8 @@ class VoitureFixtures extends Fixture
             $cylindre = $faker-> randomElement($array = array ('4','6','8'));
             $carburant = $faker-> randomElement($array = array ('essence','diesel'));
             $transmission = $faker-> randomElement($array = array ('manuelle','automatique'));
-            $description =  $faker->paragraph(3);
+            $description=$faker->paragraph(2);
+            $descrip =  "<p>".join("</p><p>",$faker->paragraphs(3))."</p>";
             $voption = $faker->paragraph(2);
             
 
@@ -41,6 +42,7 @@ class VoitureFixtures extends Fixture
                     ->setCarburant($carburant)
                     ->setAnnee(mt_rand(2010,2019))
                     ->setTransmission($transmission)
+                    ->setDescrip($descrip)
                     ->setDescription($description)
                     ->setVoption($voption);
 
