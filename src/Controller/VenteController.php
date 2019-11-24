@@ -58,8 +58,8 @@ class VenteController extends AbstractController
                 'slug' => $voiture->getSlug()
             ]);
         }
-        return $this->render('vente/new.html.twig',[
-            'myForm' => $form->createView()
+        return $this->render('vente/new.html.twig',[ 
+            'myForm' => $form->createView() // permet de passer à Twig le form dans son affichage
         ]);
 
 

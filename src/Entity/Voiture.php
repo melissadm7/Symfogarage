@@ -296,9 +296,8 @@ class Voiture
      */
     public function initializeSlug(){
         if(empty($this->slug)){
-            $slugStr=$this->marque."-".$this->modele."-".$this->Price."-".$this->annee->format('Y');
             $slugify = new Slugify();
-            $this->slug = $slugify->slugify($slugStr);
+            $this->slug = $slugify->slugify($this->modele);
         }
     }
 

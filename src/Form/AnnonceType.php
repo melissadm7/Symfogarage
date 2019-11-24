@@ -23,14 +23,15 @@ class AnnonceType extends AbstractType
      * @param string $placeholder
      * @return array
      */
-    private function getconfiguration($label,$placeholder){ //utiliser une function pour éviter de répéter chaque fois
-        return[
-            'label'=>$label,
-            'attr'=>[
+    private function getConfiguration($label,$placeholder,$options=[]){ //utiliser une function pour éviter de répéter chaque fois
+        return array_merge([
+            'label' =>$label,
+            'attr'=> [
                 'placeholder' => $placeholder
             ]
-        ];
+            ],$options);
     }
+        
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -38,7 +39,7 @@ class AnnonceType extends AbstractType
 
             ->add('marque',TextType::class, $this->getconfiguration('marque','Marque de votre voiture'))
             ->add('modele',TextType::class ,$this->getconfiguration('modele','Modèle de votre voiture'))
-            ->add('slug',TextType::class ,$this->getconfiguration('slug','Adresse Web',['required' => false]))
+            ->add('slug',TextType::class ,$this->getconfiguration('slug','Adresse Web(automatiqu',['required' => false]))
             ->add('coverImg',UrlType::class, $this->getConfiguration("Url de l'image","Donner l'adresse de votre image"))
             ->add('km',IntegerType::class, $this->getconfiguration('Nombre de km','Indiquer le nombre de km'))
             ->add('prix',MoneyType::class, $this->getconfiguration('Prix de la voiture','Indiquer le prix que votre voiture'))

@@ -34,10 +34,18 @@
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav>        {% for label, messages in app.flashes %}
+            <div class="container">
+                <div class="alert alert-{{ label }}">
+                    {% for message in messages %}
+                        <p>{{message | raw}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
         {% block body %}{% endblock %}
         {% block footer %}
-        <footer>CopyRight@2019</footer>
+        <footer  class="mt-5 py-5 text-center">Copyright © Melissa @EPSE 2019</footer>
         {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
