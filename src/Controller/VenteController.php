@@ -39,7 +39,7 @@ class VenteController extends AbstractController
 
         $form->handleRequest($request); //Parcourir la requète
 
-        if($form->isSubmitted()&& $form->isValid()){
+        if($form->isSubmitted() && $form->isValid()){
 
             foreach($voiture->getImages() as $image){
                 $image->setVoiture($voiture);
@@ -66,6 +66,48 @@ class VenteController extends AbstractController
     }
 
 
+        /**
+     * Permet d'afficher le formulaire d'édition
+     * 
+     * @Route("/vente/{slug}/edit", name="vente_edit")
+     * 
+     * @return Response 
+     * 
+     */
+
+    public function edit(Voiture $voiture, Request $request, ObjectManager $manager){
+
+        $form = $this->createForm(AnnonceType::class, $voiture);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            foreach($voiture->getImages() as $image){
+                $image->setVoiture($voiture);
+                $manager->persist($image);
+            }
+
+            $manager->persist($voiture);
+
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "L'annonce <strong>{$voiture->getMarque()}</strong> a bien été modifiée"
+            );
+
+            return $this->redirectToRoute('vente_show',[
+                'slug'=> $voiture->getSlug()
+            ]);
+
+        }
+
+        return $this->render('vente/edit.html.twig',[
+            'voiture' => $voiture,
+            "myForm"=>$form->createView()
+        ]);
+    }
 
     /**
      * @Route("/vente/{slug}", name="vente_show")

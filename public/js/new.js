@@ -8,7 +8,7 @@
             //injecter le code dans la div
             $('#annonce_images').append(tmpl);
 
-            $('#widgets-counter').val(index+1);
+            $('#widget-counter').val(index+1);
 
         // gérer le bouton supprimer
 

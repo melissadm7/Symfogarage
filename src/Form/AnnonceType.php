@@ -63,7 +63,7 @@ class AnnonceType extends AbstractType
             ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver) //pour faire la liaison entre le formulaire et la base 'voiture'
     {
         $resolver->setDefaults([
             'data_class' => Voiture::class,
