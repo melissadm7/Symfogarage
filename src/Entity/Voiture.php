@@ -25,13 +25,13 @@ class Voiture
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, max=255, minMessage="La marque doit faire plus de 10 caractères",maxMessage="Le titre ne peut pas faire plus de 255 caractères")
+     * @Assert\Length(min=3, max=255, minMessage="La marque doit faire plus de 3 caractères",maxMessage="Le titre ne peut pas faire plus de 255 caractères")
      */
     private $marque;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, max=255, minMessage="Le modèle doit faire plus de 10 caractères",maxMessage="Le titre ne peut pas faire plus de 255 caractères")
+     * @Assert\Length(min=3, max=255, minMessage="Le modèle doit faire plus de 3 caractères",maxMessage="Le titre ne peut pas faire plus de 255 caractères")
      */
     private $modele;
 
@@ -42,63 +42,77 @@ class Voiture
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Url()
+     *   
      */
     private $coverImg;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\PositiveOrZero
      */
     private $km;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @Assert\PositiveOrZero
      */
     private $prix;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\PositiveOrZero
      */
     private $proprio;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\PositiveOrZero
      */
     private $cylindre;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\PositiveOrZero
+     * 
      */
     private $puissance;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, minMessage="Puissance doit  faire plus de 5 caractères")
      */
     private $carburant;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\PositiveOrZero
      * 
      */
     private $annee;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, minMessage="Transmission doit  faire plus de 5 caractères")
+     * 
      */
     private $transmission;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, minMessage="Description doit  faire plus de 5 caractères")
+     * 
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=20, minMessage="Les options doivent faire plus de 20 caractères")
      */
     private $voption;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="voiture", orphanRemoval=true)
+     * 
      */
     private $images;
 
