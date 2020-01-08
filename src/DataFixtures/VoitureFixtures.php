@@ -2,19 +2,50 @@
 
 namespace App\DataFixtures;
 use Faker\Factory;
+use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Voiture;
 use Cocur\Slugify\Slugify;
+use App\DataFixtures\VoitureFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class VoitureFixtures extends Fixture
 {
+    private $encoder;
+    public function __construct(UserPasswordEncoderInterface $encoder){
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('FR-fr');
         $slugify = new Slugify();
 
+
+        /* création d'un role admin + administrateur */
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        $manager->persist($adminRole);
+
+        $adminUser = new User();
+        $adminUser->setFirstName('Melissa')
+                ->setLastName('De Muyer')
+                ->setEmail('admin@epse.be')
+                ->setHash($this->encoder->encodePassword($adminUser,'password'))
+                ->setIntroduction($faker->sentence())
+                ->setDescription('<p>'.join('</p><p>', $faker->paragraphs(3)).'</p>')
+                ->addUserRole($adminRole);
+
+        $manager->persist($adminUser);        
+
+        //gestion des utilisateurs
+
+
+        //gestion des annonces
         for($i=1 ; $i <=11; $i++){
             $voiture = new Voiture();
 

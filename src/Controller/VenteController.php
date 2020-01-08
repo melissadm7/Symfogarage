@@ -66,7 +66,7 @@ class VenteController extends AbstractController
     }
 
 
-        /**
+    /**
      * Permet d'afficher le formulaire d'édition
      * 
      * @Route("/vente/{slug}/edit", name="vente_edit")
@@ -124,5 +124,9 @@ class VenteController extends AbstractController
         ]);
         
     }
+
+
 }
+
+
 
