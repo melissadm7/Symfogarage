@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Entity\User;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -53,12 +55,12 @@ class User implements UserInterface
 
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $introduction;
 
     /**
-     * @ORM\Column(type="string", length=255)
+        * @ORM\Column(type="text")
      */
     private $description;
 
@@ -68,6 +70,11 @@ class User implements UserInterface
     private $slug;
 
     
+    
+    public function getFullName(){
+        return "{$this->firstName} {$this->lastName}";
+    }
+
     /**
      * Permet d'intialiser le slug
      * 
@@ -202,5 +209,4 @@ class User implements UserInterface
     }
 
     public function eraseCredentials(){}
-
 }

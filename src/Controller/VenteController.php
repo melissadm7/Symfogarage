@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\Voiture;
 use App\Form\AnnonceType;
 use App\Repository\VoitureRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -124,6 +125,26 @@ class VenteController extends AbstractController
         ]);
         
     }
+
+    /**
+     * Permet de supprimer une annonce 
+     * @Route("/vente/{slug}/delete", name="vente_delete")
+     * @param voiture $voiture
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function delete(voiture $voiture, EntityManagerInterface $manager){
+        $manager->remove($voiture);
+        $manager->flush();
+
+        $this->addFlash(
+            "success",
+            "L'annonce <strong>{$voiture->getMarque()}</strong> a bien été supprimée"
+        );
+
+        return $this->redirectToRoute("vente");
+    }
+
 
 
 }

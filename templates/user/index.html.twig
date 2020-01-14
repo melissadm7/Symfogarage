@@ -1,20 +1,36 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Page de {{ user.fullName }} {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Melissa/Desktop/Symfony/garage/Symfogarage/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Melissa/Desktop/Symfony/garage/Symfogarage/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
-</div>
+<div class="slide">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-3 text-center">
+                {% if user.picture %}
+                    <img src="/uploads/{{user.picture}}" alt="avatar de {{ user.fullName }}" class="avatar mb-3">
+                {% else %}
+                    <img src="http://placehold.it/200x200" alt="avatar de {{ user.fullName }}" class="avatar mb-3">
+                {% endif %}
+                <br>
+            </div>
+            <div class="col-9">
+                <h1>{{ user.fullName }}</h1>
+                {{ user.introduction }}
+                {% if app.user %}
+                    <div class="mt-3">
+                        <a href="{{ path('account_profile') }}" class="btn btn-primary mr-2 mb-4">Modifier mes informations</a>
+                        <a href="#" class="btn btn-primary mr-2 mb-4">Modifier mon mot de passe</a>
+                        <a href="#" class="btn btn-primary mr-2 mb-4">Modifier mon avatar</a>
+                    </div>
+                {% endif %}
+                
+                {{ user.description | raw }}
+            </div>       
+        </div>
+      
+        <hr>
+        </div>
+        </div>
 {% endblock %}

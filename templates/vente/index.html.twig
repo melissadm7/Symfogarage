@@ -21,7 +21,12 @@
                     <li class="list-group-item">{{voiture.prix}} €</li>
                 </ul>
                 <div class="card-body">
-                    <h6><a href="{{ url }}" class="card-link"><strong>En savoir plus</strong></a></h6>
+                    <h6><a href="{{ url }}" class="card-link" class="btn btn-warning mt-3"><strong>En savoir plus</strong></a></h6>
+                    {% if (app.user) %}
+                        <a href="{{ path('vente_edit',{'slug':voiture.slug}) }}" class="btn btn-warning mt-3">Modification de l'annonce</a>
+                        <a href="{{ path('vente_delete',{'slug':voiture.slug}) }}" class="btn btn-danger mt-3" onclick="return confirm('Êtes-vous sûr de vouloir supprimer l\'annonce : {{voiture.slug}} ?')">Supprimer l'annonce</a>
+                    {% endif %}
+
 
                 </div>
             </div>

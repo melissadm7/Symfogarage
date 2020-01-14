@@ -25,20 +25,13 @@ class VoitureFixtures extends Fixture
         $faker = Factory::create('FR-fr');
         $slugify = new Slugify();
 
-
-        /* création d'un role admin + administrateur */
-        $adminRole = new Role();
-        $adminRole->setTitle('ROLE_ADMIN');
-        $manager->persist($adminRole);
-
         $adminUser = new User();
         $adminUser->setFirstName('Melissa')
                 ->setLastName('De Muyer')
-                ->setEmail('admin@epse.be')
+                ->setEmail('admin@admin.be')
                 ->setHash($this->encoder->encodePassword($adminUser,'password'))
                 ->setIntroduction($faker->sentence())
-                ->setDescription('<p>'.join('</p><p>', $faker->paragraphs(3)).'</p>')
-                ->addUserRole($adminRole);
+                ->setDescription('<p>'.join('</p><p>', $faker->paragraphs(3)).'</p>');
 
         $manager->persist($adminUser);        
 
